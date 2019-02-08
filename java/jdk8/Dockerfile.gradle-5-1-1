@@ -1,0 +1,2 @@
+FROM circleci/openjdk:8-jdk
+FROM gradle:5.1.1-jdk8

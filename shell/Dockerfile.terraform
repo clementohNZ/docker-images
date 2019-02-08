@@ -1,0 +1,9 @@
+FROM debian:stretch
+RUN apt-get update
+RUN apt-get install -y curl \
+    unzip
+
+# INSTALL TERRAFORM
+RUN curl -o terraform_0.11.11_linux_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip && \
+    unzip terraform_0.11.11_linux_amd64.zip && \
+    mv ./terraform /usr/bin/
