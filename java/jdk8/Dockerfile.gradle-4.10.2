@@ -1,2 +1,5 @@
 FROM circleci/openjdk:8-jdk
-FROM gradle:4.10.2-jdk8
+
+COPY gradle-4.10.2 /opt/gradle/gradle-4.10.2
+
+ENV PATH="${PATH}:/opt/gradle/gradle-4.10.2/bin"
