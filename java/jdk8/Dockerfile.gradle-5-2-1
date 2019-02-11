@@ -1,4 +1,4 @@
-FROM circleci/openjdk:8-alpine
+FROM openjdk:8-alpine
 
 COPY gradle-5.2.1 /opt/gradle/gradle-5.2.1
 
