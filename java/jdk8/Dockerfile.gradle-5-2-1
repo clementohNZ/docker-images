@@ -1,0 +1,5 @@
+FROM openjdk:8-alpine
+
+COPY gradle-5.2.1 /opt/gradle/gradle-5.2.1
+
+ENV PATH="${PATH}:/opt/gradle/gradle-5.2.1/bin"
