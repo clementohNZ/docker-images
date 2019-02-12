@@ -1,2 +1,2 @@
-# Docker Images for CircleCI
-Images built for circle ci pipelines.
+# Docker Images
+Pre-built docker images for clementoh on dockerhub.
