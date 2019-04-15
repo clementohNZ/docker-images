@@ -1,0 +1,47 @@
+# Inspired by https://github.com/mumoshu/dcind
+# Inspired by https://github.com/meAmidos/dcind
+
+FROM gradle:5.2.1-jdk8-alpine
+
+USER root
+
+MAINTAINER clement.oh094@gmail.com
+
+# ENV DOCKER_VERSION=18.03.0-ce \
+ENV DOCKER_VERSION=17.12.1-ce \
+    DOCKER_COMPOSE_VERSION=1.21.0 \
+    ENTRYKIT_VERSION=0.4.0
+
+# Install deps
+RUN apk --update --no-cache \
+    add bash \
+    curl \
+    device-mapper \
+    git \
+    openssh \
+    openssl \
+    py-pip \
+    jq \
+    iptables && \
+    pip install --upgrade pip && \
+    pip install --upgrade awscli && \
+    rm -rf /var/cache/apk/
+
+# Install Docker and Docker Compose
+RUN cd / && curl https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz | tar zx && \
+    mv /docker/* /bin/ && chmod +x /bin/docker* && \
+    pip install docker-compose==${DOCKER_COMPOSE_VERSION}
+
+# Install entrykit
+RUN curl -L https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERSION}/entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz | tar zx && \
+    chmod +x entrykit && \
+    mv entrykit /bin/entrykit && \
+    entrykit --symlink
+
+COPY start-docker.sh /scripts/start-docker.sh
+COPY post-docker-start.sh /scripts/post-docker-start.sh
+
+RUN chmod +x /scripts/start-docker.sh
+RUN chmod +x /scripts/post-docker-start.sh
+
+CMD /scripts/start-docker.sh
