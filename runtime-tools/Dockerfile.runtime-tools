@@ -1,9 +1,20 @@
 FROM debian:stretch
 RUN apt-get update
 RUN apt-get install -y curl \
-    unzip
+    unzip \
+    python \
+    bash
+
+USER root
 
 # INSTALL TERRAFORM
 RUN curl -o terraform_0.11.11_linux_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip && \
     unzip terraform_0.11.11_linux_amd64.zip && \
     mv ./terraform /usr/bin/
+
+# Install Google Cloud SDK
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
+
+# Install kubectl for Kubernetes
+RUN gcloud components install kubectl
