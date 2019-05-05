@@ -10,3 +10,4 @@ Currently the list of included tools is:
 - Curl
 - unzip
 - Bash
+- htpasswd via apache2-utils
