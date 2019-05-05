@@ -11,3 +11,5 @@ Currently the list of included tools is:
 - unzip
 - Bash
 - htpasswd via apache2-utils
+- envsubst via gettext (for substituting env variables in
+files such as k8s manifests)
