@@ -1,11 +1,26 @@
 FROM debian:stretch
+
+# Install packages
 RUN apt-get update
 RUN apt-get install -y curl \
     unzip \
     python \
     bash \
     apache2-utils \
-    gettext
+    gettext \
+    software-properties-common \
+    apt-transport-https \
+    ca-certificates \
+    gnupg2
+
+# Install Docker in Docker
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+RUN add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+RUN apt-get update
+RUN apt-get -y install docker-ce=18.06.3~ce~3-0~debian
 
 USER root
 
@@ -19,4 +34,6 @@ RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 
 # Install kubectl for Kubernetes
-RUN gcloud components install kubectl
+RUN curl -LO -s -# https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl
+RUN chmod +x ./kubectl
+RUN mv ./kubectl /usr/local/bin/kubectl

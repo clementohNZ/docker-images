@@ -13,3 +13,7 @@ Currently the list of included tools is:
 - htpasswd via apache2-utils
 - envsubst via gettext (for substituting env variables in
 files such as k8s manifests)
+
+## Deployment
+Run the `build-and-push.sh` script to build the dockerfile and push it
+to Docker Hub.
